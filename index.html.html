@@ -1,0 +1,563 @@
+<!doctype html>
+<html lang="ko" data-lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>ONEshop · ONE store</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;600;800&family=Noto+Sans+SC:wght@400;600;800&display=swap">
+<style>
+/* Layout: Director's Cut 페이지와 같은 구조. 800px 중앙 컬럼, 다크 히어로와 다크 섹션 뒤 라이트 섹션 */
+:root{
+  --navy:#1b1d3a; --navy-2:#16182f; --navy-line:#2c2f52;
+  --purple:#6b4cff; --red:#e8204a; --red-ink:#c4123a; --pink:#ff8aa0;
+  --ink:#1b1d3a; --muted:#5b5f7a; --line:#e3e4ee; --soft:#f6f6fb; --white:#fff;
+  --d-ink:#f4f3fb; --d-muted:#b9b7d4;
+  --tbc-bg:#fff3d6; --tbc-ink:#7a5200;
+  --font:"Paperlogy","Noto Sans KR","Noto Sans SC",system-ui,sans-serif;
+  --font-zh:"Noto Sans SC","Paperlogy",system-ui,sans-serif;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--navy);color:var(--ink);font-family:var(--font);font-size:17px;line-height:1.7;-webkit-font-smoothing:antialiased;word-break:keep-all;overflow-wrap:break-word}
+html:not([data-lang]) :is([lang="en"],[lang="zh-Hans"]),
+html[data-lang="ko"] :is([lang="en"],[lang="zh-Hans"]),
+html[data-lang="en"] :is([lang="ko"],[lang="zh-Hans"]),
+html[data-lang="zh"] :is([lang="ko"],[lang="en"]){display:none!important}
+[lang="zh-Hans"]{font-family:var(--font-zh);word-break:normal;line-break:strict}
+.page{max-width:800px;margin:0 auto;background:var(--white)}
+.wrap{padding-inline:48px}
+a{color:inherit}
+p{margin:0 0 14px}
+h3{text-wrap:balance}
+.nowrap{white-space:nowrap}
+.tbc{display:inline-block;font-size:12.5px;font-weight:600;line-height:1.5;background:var(--tbc-bg);color:var(--tbc-ink);border-radius:5px;padding:1px 7px;margin-left:4px;vertical-align:1px}
+
+/* 히어로 */
+.hero{background-color:var(--navy);background-image:linear-gradient(160deg,#1b1d3a 0%,#2a1640 55%,#4a1630 100%);color:var(--d-ink);padding-block:28px 52px}
+.topbar{display:flex;justify-content:space-between;align-items:center;gap:12px}
+.logo{height:22px;width:auto;display:block}
+.lang-toggle{display:flex;border:1px solid #55507a;border-radius:999px;overflow:hidden}
+.lang-toggle button{all:unset;cursor:pointer;font-size:13px;font-weight:600;padding:4px 12px;color:var(--d-muted)}
+.lang-toggle button:focus-visible{outline:2px solid var(--white);outline-offset:-3px}
+.lang-toggle button[aria-pressed="true"]{background:var(--white);color:var(--navy)}
+.badges{display:flex;gap:6px;margin-top:56px}
+.badge{font-size:13px;font-weight:800;line-height:1.5;padding:3px 10px;border-radius:6px;color:var(--white)}
+.badge.purple{background:var(--purple)}
+.badge.red{background:var(--red-ink)}
+.hero h1{font-size:52px;line-height:1.1;font-weight:800;margin:14px 0;letter-spacing:-.01em;color:var(--white)}
+.lede{font-size:20px;color:var(--d-muted);margin:0;max-width:32em}
+.ctas{display:flex;gap:10px;margin-top:28px;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;gap:6px;font-size:15px;font-weight:600;padding:12px 20px;border-radius:999px;text-decoration:none}
+.btn.primary{background:var(--white);color:var(--navy)}
+.btn.ghost{border:1px solid #8a86b8;color:var(--white)}
+.btn:focus-visible{outline:2px solid var(--pink);outline-offset:2px}
+.keys{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:40px}
+.key{border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.05);border-radius:14px;padding:16px;min-width:0}
+.key b{display:block;font-size:17px;font-weight:800;color:var(--white)}
+.key span{font-size:14px;line-height:1.5;color:var(--d-muted)}
+
+/* 섹션 공통 */
+.sec{padding-block:48px;border-top:1px solid var(--line)}
+.dark{background-color:var(--navy-2);color:var(--d-ink)}
+.dark .sec{border-top-color:var(--navy-line)}
+.dark .sec:first-child{border-top:0}
+.sec-head{display:flex;align-items:baseline;gap:12px;margin-bottom:18px}
+.sec-num{font-size:14px;font-weight:800;letter-spacing:.08em;color:var(--red-ink)}
+.dark .sec-num{color:var(--pink)}
+.sec-title{font-size:28px;font-weight:800;line-height:1.3;margin:0;text-wrap:balance}
+.dark .sec-title{color:var(--white)}
+.sub{font-size:18px;font-weight:800;margin:32px 0 12px}
+.dark .sub{color:var(--white)}
+
+/* 다크 카드 */
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.grid1{display:grid;gap:12px}
+.benefit{border:1px solid var(--navy-line);background:rgba(255,255,255,.04);border-radius:14px;padding:18px 20px;min-width:0}
+.benefit h3{font-size:17px;font-weight:800;margin:0 0 6px;color:var(--white)}
+.benefit p{margin:0;font-size:15.5px;line-height:1.65;color:var(--d-muted)}
+.benefit .no{font-size:13px;font-weight:800;letter-spacing:.08em;color:var(--pink);display:block;margin-bottom:4px}
+.tbl-wrap{overflow-x:auto}
+.terms{width:100%;border-collapse:collapse;font-size:15px;line-height:1.55}
+.terms th,.terms td{border:1px solid var(--navy-line);padding:10px 12px;text-align:left;vertical-align:top;color:var(--d-muted)}
+.terms th{background:rgba(255,255,255,.07);color:var(--white);font-weight:600;white-space:nowrap;width:9.5em}
+.terms td b{color:var(--d-ink);font-weight:600}
+.plan{display:inline-block;font-size:12px;font-weight:700;line-height:1.5;border:1px solid var(--pink);color:var(--pink);border-radius:5px;padding:0 7px;margin:6px 8px 0 0;vertical-align:1px}
+.paylist{list-style:none;margin:0;padding:0;display:grid;gap:6px}
+.paylist li{display:grid;grid-template-columns:7.5em 1fr;gap:10px}
+.paylist b{color:var(--d-ink);font-weight:600}
+@media (max-width:640px){.paylist{gap:8px}.paylist li{grid-template-columns:1fr;gap:0}}
+.fade{height:72px;background:linear-gradient(var(--navy-2),var(--white))}
+
+/* 라이트 구간 */
+.lead{color:var(--muted)}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:20px}
+.stat{border:1px solid var(--line);border-radius:14px;padding:18px;min-width:0}
+.stat .lbl{display:block;font-size:13px;font-weight:800;letter-spacing:.04em;color:var(--purple)}
+.stat .num{display:block;font-size:36px;font-weight:800;line-height:1.2;margin:4px 0 8px;color:var(--red-ink);font-variant-numeric:tabular-nums}
+.stat p{margin:0;font-size:14.5px;line-height:1.6;color:var(--muted)}
+.cases{list-style:none;margin:0;padding:0;border-top:1px solid var(--line)}
+.case{display:grid;grid-template-columns:36px 1fr auto;gap:14px;align-items:start;padding:14px 0;border-bottom:1px solid var(--line)}
+.case-id{width:30px;height:30px;border-radius:8px;background:var(--soft);border:1px solid var(--line);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:14px;color:var(--purple)}
+.case-body{min-width:0}
+.case-body b{display:block;font-size:16px;font-weight:800}
+.case-body span{font-size:15px;line-height:1.6;color:var(--muted)}
+.share{font-size:14px;font-weight:800;white-space:nowrap;color:var(--red-ink);background:#fff4f6;border:1px solid #f6c1cb;border-radius:999px;padding:3px 12px;font-variant-numeric:tabular-nums}
+.footnote{font-size:13.5px;line-height:1.6;color:var(--muted);margin-top:12px}
+.channels{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.channel{border:1px solid var(--line);border-radius:14px;padding:18px 20px;min-width:0}
+.channel.wide{grid-column:1/-1}
+.channel h3{font-size:17px;font-weight:800;margin:0 0 6px}
+.channel p{font-size:15px;line-height:1.6;color:var(--muted);margin:0}
+.channel ul{margin:6px 0 0;padding-left:1.1em;font-size:15px;line-height:1.6;color:var(--muted)}
+.channel li+li{margin-top:4px}
+.howto{margin-top:12px;background:rgba(107,76,255,.06);border:1px solid rgba(107,76,255,.3);border-left:3px solid var(--purple);border-radius:10px;padding:12px 14px;font-size:14.5px;line-height:1.6;color:var(--ink)}
+.howto b{font-weight:800}
+.howto a,.text-link{color:var(--red-ink);font-weight:600}
+.urlbox{margin-top:14px;border:1px solid var(--line);border-radius:12px;padding:12px 14px;background:var(--soft)}
+.urlbox .lbl{display:block;font-size:13px;font-weight:800;color:var(--ink);margin-bottom:6px}
+.urlrow{display:flex;gap:8px;align-items:center}
+.urlrow code{flex:1;min-width:0;overflow-x:auto;white-space:nowrap;font-family:ui-monospace,Consolas,monospace;font-size:14px;background:var(--white);border:1px solid var(--line);border-radius:8px;padding:8px 10px;user-select:all}
+.copy{all:unset;cursor:pointer;font-size:13px;font-weight:700;padding:8px 14px;border-radius:8px;background:var(--navy);color:var(--white);white-space:nowrap}
+.copy:focus-visible{outline:2px solid var(--purple);outline-offset:2px}
+.copy .c-done{display:none}
+.copy.ok .c-idle{display:none}
+.copy.ok .c-done{display:inline}
+.urlbox p{margin:8px 0 0;font-size:14.5px;line-height:1.6;color:var(--muted)}
+.warn{margin-top:12px;background:#fff4f6;border:1px solid #f6c1cb;border-radius:12px;padding:14px 18px;font-size:15px;color:#7a1027}
+.warn p{margin:0}
+.faq{display:grid;gap:10px}
+.qa{border:1px solid var(--line);border-radius:14px;padding:16px 20px}
+.qa h3{font-size:16.5px;font-weight:800;margin:0 0 6px;display:flex;gap:8px}
+.qa h3::before{content:"Q";color:var(--purple)}
+.qa p{font-size:15.5px;line-height:1.65;color:var(--muted);margin:0}
+.qa ul{margin:8px 0 0;padding-left:1.1em;font-size:15px;color:var(--muted)}
+.mail{font-family:ui-monospace,Consolas,monospace;font-size:.92em;background:var(--soft);border:1px solid var(--line);border-radius:5px;padding:1px 6px;user-select:all;white-space:nowrap}
+
+/* 06 지원 패키지 강조 밴드 */
+.fade-up{height:64px;background:linear-gradient(var(--white),var(--navy))}
+.support-band{background-color:var(--navy);background-image:linear-gradient(170deg,#1b1d3a 0%,#2a1640 60%,#4a1630 100%);color:var(--d-ink)}
+.support-band .sec{border-top:0;padding-block:32px 56px}
+.band-tag{display:inline-block;font-size:13px;font-weight:800;line-height:1.5;padding:3px 10px;border-radius:6px;background:var(--red-ink);color:var(--white);margin-bottom:12px}
+.support-band .sec-num{color:var(--pink)}
+.support-band .sec-title{color:var(--white);font-size:32px}
+.support-band .lead{color:var(--d-muted);font-size:18px}
+.support-band .channel{border:1px solid rgba(255,255,255,.16);border-top:3px solid var(--pink);background:rgba(255,255,255,.06)}
+.support-band .channel h3{color:var(--white);font-size:18px}
+.support-band .channel p,.support-band .channel ul{color:var(--d-muted)}
+.support-band .channel.feature{background:rgba(255,138,160,.10);border-color:rgba(255,138,160,.45);border-top-color:var(--pink)}
+.support-band .mail{background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.25);color:var(--white)}
+
+footer{background:var(--navy);color:var(--d-muted);padding-block:28px;font-size:14px}
+footer .wrap{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}
+footer a{color:var(--white)}
+
+@media (max-width:640px){
+  .wrap{padding-inline:20px}
+  .hero h1{font-size:38px}
+  .badges{margin-top:36px}
+  .lede{font-size:18px}
+  .keys{grid-template-columns:1fr 1fr}
+  .grid2,.channels,.stats{grid-template-columns:1fr}
+  .terms th{width:auto;white-space:normal}
+  .case{grid-template-columns:30px 1fr;gap:10px}
+  .case .share{grid-column:2;justify-self:start}
+}
+@media (prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}}
+@media print{.lang-toggle{display:none}}
+</style>
+
+</head>
+<body>
+
+<div class="page">
+  <header class="hero">
+    <div class="wrap">
+      <div class="topbar">
+        <img class="logo" src="data:image/png;base64,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" alt="ONE store">
+        <div class="lang-toggle" role="group" aria-label="Language">
+          <button type="button" data-set="ko" aria-pressed="true">KO</button>
+          <button type="button" data-set="en" aria-pressed="false">EN</button>
+          <button type="button" data-set="zh" aria-pressed="false">中文</button>
+        </div>
+      </div>
+      <div class="badges"><span class="badge purple">WEBSHOP</span><span class="badge red">LOW FEE</span></div>
+      <h1>ONEshop</h1>
+      <p class="lede" lang="ko">원스토어가 운영하는 공식 웹샵. 시간과 플랫폼에 구애받지 않고 게임 아이템을 판매하는, 인앱결제를 보완하는 수익성 높은 판매 채널입니다.</p>
+      <p class="lede" lang="en">ONE store's official webshop. Sell in-game items anytime, on any platform, through a high-margin channel that complements in-app billing.</p>
+      <p class="lede" lang="zh-Hans">ONE store 官方网店。不受时间和平台限制销售游戏道具，是补充应用内支付的高收益销售渠道。</p>
+      <div class="ctas">
+        <a class="btn primary" href="https://onestore-dev.gitbook.io/dev/webshop/overview"><span lang="ko">가이드 문서 보기</span><span lang="en">Read the guide</span><span lang="zh-Hans">查看指南</span></a>
+        <a class="btn ghost" href="#support"><span lang="ko">지원 패키지 ↓</span><span lang="en">Support package ↓</span><span lang="zh-Hans">支持方案 ↓</span></a>
+        <a class="btn ghost" href="#tips"><span lang="ko">운영 제언 ↓</span><span lang="en">Best practices ↓</span><span lang="zh-Hans">运营建议 ↓</span></a>
+      </div>
+      <div class="keys">
+        <div class="key"><b lang="ko">낮은 수수료</b><b lang="en">Low fee</b><b lang="zh-Hans">低手续费</b><span lang="ko">국내 8%, PG 수수료 포함</span><span lang="en">8% in Korea, PG fees included</span><span lang="zh-Hans">韩国 8%，含支付通道费</span></div>
+        <div class="key"><b lang="ko">쉬운 시작</b><b lang="en">Quick start</b><b lang="zh-Hans">快速上手</b><span lang="ko">AI 자동 세팅, CSV 등록</span><span lang="en">AI auto setup, CSV upload</span><span lang="zh-Hans">AI 自动设置，CSV 批量登记</span></div>
+        <div class="key"><b lang="ko">게임 연동</b><b lang="en">In-game link</b><b lang="zh-Hans">游戏联动</b><span lang="ko">인게임 상점 노출까지 허용</span><span lang="en">Allowed even in your in-game store</span><span lang="zh-Hans">游戏内商店也可展示</span></div>
+        <div class="key"><b lang="ko">7개국 판매</b><b lang="en">7 countries</b><b lang="zh-Hans">7 个国家</b><span lang="ko">대한민국 외 6개국</span><span lang="en">Korea + 6 more</span><span lang="zh-Hans">韩国及另外 6 国</span></div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+  <div class="dark">
+    <div class="wrap">
+      <section class="sec" id="about">
+        <div class="sec-head"><span class="sec-num">01</span><h2 class="sec-title"><span lang="ko">원샵이란?</span><span lang="en">What is ONEshop?</span><span lang="zh-Hans">什么是 ONEshop？</span></h2></div>
+        <p lang="ko">원샵(ONEshop)은 원스토어가 운영하는 공식 웹샵입니다. 게임사는 시간과 플랫폼에 구애받지 않고 게임 아이템을 웹에서 판매하고, 이용자는 앱 설치 없이 PC·Android·iOS 브라우저에서 바로 구매합니다. 원샵은 인앱결제를 대체하지 않고 보완하는 수익성 높은 판매 채널입니다.</p>
+        <p lang="en">ONEshop is the official webshop run by ONE store. Game companies sell in-game items on the web anytime and on any platform, and players buy right in their PC, Android or iOS browser without installing an app. ONEshop complements in-app billing rather than replacing it, as a high-margin sales channel.</p>
+        <p lang="zh-Hans">ONEshop 是 ONE store 运营的官方网店。游戏公司可不受时间和平台限制在网页上销售游戏道具，玩家无需安装应用，即可在 PC、Android、iOS 浏览器中直接购买。ONEshop 不取代应用内支付，而是作为补充的高收益销售渠道。</p>
+
+        <h3 class="sub"><span lang="ko">특장점</span><span lang="en">Highlights</span><span lang="zh-Hans">核心优势</span></h3>
+        <div class="grid2">
+          <div class="benefit">
+            <h3><span lang="ko">낮은 수수료</span><span lang="en">Lower fee</span><span lang="zh-Hans">更低手续费</span></h3>
+            <p lang="ko">인앱결제보다 낮고, 추가 비용이 없는 고정 요율입니다.</p>
+            <p lang="en">Lower than in-app billing, at a flat rate with no extra costs.</p>
+            <p lang="zh-Hans">低于应用内支付，固定费率，无额外费用。</p>
+          </div>
+          <div class="benefit">
+            <h3><span lang="ko">쉬운 시작</span><span lang="en">Quick start</span><span lang="zh-Hans">快速上手</span></h3>
+            <p lang="ko">개발자센터에서 게임을 검색해 선택하면 AI 자동 세팅이 상품과 웹샵 화면을 미리 구성합니다. 아이템은 CSV로 한 번에 등록합니다.</p>
+            <p lang="en">Search for and select your game in the Developer Center, and AI auto setup drafts your items and shop pages. Upload items in bulk with a CSV.</p>
+            <p lang="zh-Hans">在开发者中心搜索并选择游戏，AI 自动设置即可预先生成商品和网店页面。道具可通过 CSV 一次性登记。</p>
+          </div>
+          <div class="benefit">
+            <h3><span lang="ko">인앱결제와 같은 서버 규격</span><span lang="en">Same server specs as IAP</span><span lang="zh-Hans">与应用内支付相同的服务器规格</span></h3>
+            <p lang="ko">원스토어 인앱결제를 연동한 게임은 유효성 검증, 결제 알림(PNS), 구매확인을 같은 방식으로 구현해 빠르게 웹샵을 엽니다.</p>
+            <p lang="en">Games on ONE store in-app billing implement validation, payment notifications (PNS) and purchase confirmation the same way, and launch their webshop fast.</p>
+            <p lang="zh-Hans">已接入 ONE store 应用内支付的游戏，可用相同方式实现有效性校验、支付通知（PNS）和购买确认，快速开通网店。</p>
+          </div>
+          <div class="benefit">
+            <h3><span lang="ko">한 곳에서 관리하고 함께 정산</span><span lang="en">One console, one settlement</span><span lang="zh-Hans">统一管理，合并结算</span></h3>
+            <p lang="ko">앱과 웹샵의 등록, 검증, 정산을 원스토어 개발자센터 한 곳에서 처리하고, 웹샵 매출은 앱 매출과 함께 정산됩니다.</p>
+            <p lang="en">Register, review and settle both your app and webshop in the ONE store Developer Center. Webshop revenue is settled together with app revenue.</p>
+            <p lang="zh-Hans">应用和网店的登记、审核、结算均在 ONE store 开发者中心一站完成，网店收入与应用收入合并结算。</p>
+          </div>
+        </div>
+
+        <h3 class="sub"><span lang="ko">입점 조건</span><span lang="en">Terms</span><span lang="zh-Hans">入驻条件</span></h3>
+        <div class="tbl-wrap">
+          <table class="terms">
+            <tbody>
+              <tr><th><span lang="ko">수수료</span><span lang="en">Fee</span><span lang="zh-Hans">手续费</span></th>
+                <td><span lang="ko"><b>국내</b> 8% (PG 수수료 포함)<br><b>글로벌</b> 5% + PG 수수료</span><span lang="en"><b>Korea</b> 8% (PG fees included)<br><b>Global</b> 5% + PG fees</span><span lang="zh-Hans"><b>韩国</b> 8%（含支付通道费）<br><b>海外</b> 5% + 支付通道费</span></td></tr>
+              <tr><th><span lang="ko">정산</span><span lang="en">Settlement</span><span lang="zh-Hans">结算</span></th>
+                <td><span lang="ko">APK 판매 내역과 통합 정산</span><span lang="en">Combined with APK sales</span><span lang="zh-Hans">与 APK 销售合并结算</span></td></tr>
+              <tr><th><span lang="ko">판매 국가</span><span lang="en">Countries</span><span lang="zh-Hans">销售国家</span></th>
+                <td><span lang="ko">대한민국, 태국, 대만, 인도네시아, 일본, 필리핀, 미국<br><span class="plan">추가 예정</span>인도, 유럽 13개국 등</span><span lang="en">Korea, Thailand, Taiwan, Indonesia, Japan, Philippines, United States<br><span class="plan">Coming</span>India, 13 European countries and more</span><span lang="zh-Hans">韩国、泰国、台湾、印度尼西亚、日本、菲律宾、美国<br><span class="plan">即将新增</span>印度、欧洲 13 国等</span></td></tr>
+              <tr><th><span lang="ko">지원 언어</span><span lang="en">Languages</span><span lang="zh-Hans">支持语言</span></th>
+                <td><span lang="ko">한국어, 영어<br><span class="plan">추가 예정</span>중국어 간체, 중국어 번체</span><span lang="en">Korean, English<br><span class="plan">Coming</span>Simplified Chinese, Traditional Chinese</span><span lang="zh-Hans">韩语、英语<br><span class="plan">即将新增</span>简体中文、繁体中文</span></td></tr>
+              <tr><th><span lang="ko">결제수단 (국내)</span><span lang="en">Payment (Korea)</span><span lang="zh-Hans">支付方式（韩国）</span></th>
+                <td><span lang="ko">ONE pay(신용카드, 내통장결제, 카카오페이, 토스페이), 일반 결제(신용카드, 네이버페이)</span><span lang="en">ONE pay (credit card, bank account payment, KakaoPay, Toss Pay), standard payment (credit card, Naver Pay)</span><span lang="zh-Hans">ONE pay（信用卡、账户直付、KakaoPay、Toss Pay），普通支付（信用卡、Naver Pay）</span></td></tr>
+              <tr><th><span lang="ko">결제수단 (해외)</span><span lang="en">Payment (global)</span><span lang="zh-Hans">支付方式（海外）</span></th>
+                <td>
+                  <ul class="paylist" lang="ko"><li><b>태국</b>K PLUS, PromptPay, Rabbit LINE Pay, ShopeePay, TrueMoney Wallet, TrueMoney Cash Card, 통신사 결제(TrueMove H)</li><li><b>대만</b>신용카드, LINE Pay, JKO Pay, GASH(기프트카드, E-wallet), 통신사 결제(Chunghwa Telecom, FarEasTone)</li><li><b>인도네시아</b>Bank Transfer, DOKU Wallet</li><li><b>일본</b>신용카드, Google Pay·Apple Pay, PayPay</li><li><b>필리핀</b>GCash</li><li><b>미국</b>신용카드, Google Pay·Apple Pay, PayPal, Cash App</li><li><b>공통</b>Unifi Pay</li><li><b>유럽 13개국</b><span><span class="plan">추가 예정</span>신용카드, Google Pay·Apple Pay, PayPal, Bancontact, iDEAL, EPS, BLIK, Paysafecard</span></li><li><b>인도</b><span><span class="plan">추가 예정</span>UPI, 신용카드</span></li></ul>
+                  <ul class="paylist" lang="en"><li><b>Thailand</b>K PLUS, PromptPay, Rabbit LINE Pay, ShopeePay, TrueMoney Wallet, TrueMoney Cash Card, carrier billing (TrueMove H)</li><li><b>Taiwan</b>Credit cards, LINE Pay, JKO Pay, GASH (gift card, e-wallet), carrier billing (Chunghwa Telecom, FarEasTone)</li><li><b>Indonesia</b>Bank Transfer, DOKU Wallet</li><li><b>Japan</b>Credit cards, Google Pay·Apple Pay, PayPay</li><li><b>Philippines</b>GCash</li><li><b>United States</b>Credit cards, Google Pay·Apple Pay, PayPal, Cash App</li><li><b>All</b>Unifi Pay</li><li><b>13 European countries</b><span><span class="plan">Coming</span>Credit cards, Google Pay·Apple Pay, PayPal, Bancontact, iDEAL, EPS, BLIK, Paysafecard</span></li><li><b>India</b><span><span class="plan">Coming</span>UPI, credit cards</span></li></ul>
+                  <ul class="paylist" lang="zh-Hans"><li><b>泰国</b>K PLUS、PromptPay、Rabbit LINE Pay、ShopeePay、TrueMoney Wallet、TrueMoney Cash Card、运营商代扣（TrueMove H）</li><li><b>台湾</b>信用卡、LINE Pay、JKO Pay、GASH（礼品卡、电子钱包）、运营商代扣（Chunghwa Telecom、FarEasTone）</li><li><b>印度尼西亚</b>Bank Transfer、DOKU Wallet</li><li><b>日本</b>信用卡、Google Pay·Apple Pay、PayPay</li><li><b>菲律宾</b>GCash</li><li><b>美国</b>信用卡、Google Pay·Apple Pay、PayPal、Cash App</li><li><b>通用</b>Unifi Pay</li><li><b>欧洲 13 国</b><span><span class="plan">即将新增</span>信用卡、Google Pay·Apple Pay、PayPal、Bancontact、iDEAL、EPS、BLIK、Paysafecard</span></li><li><b>印度</b><span><span class="plan">即将新增</span>UPI、信用卡</span></li></ul>
+                </td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="sec" id="why">
+        <div class="sec-head"><span class="sec-num">02</span><h2 class="sec-title"><span lang="ko">왜 원샵인가</span><span lang="en">Why ONEshop</span><span lang="zh-Hans">为什么选择 ONEshop</span></h2></div>
+        <p lang="ko">원샵은 원스토어 계정, 게임, 원스토어 앱을 하나로 잇습니다. 자체 웹샵이나 외부 솔루션이 따라할 수 없는 세 가지를 제공합니다.</p>
+        <p lang="en">ONEshop connects the ONE store account, your game and the ONE store app. It offers three things a self-built webshop or third-party solution cannot.</p>
+        <p lang="zh-Hans">ONEshop 将 ONE store 账号、游戏与 ONE store 应用连为一体，提供自建网店或第三方方案无法提供的三项优势。</p>
+        <div class="grid1">
+          <div class="benefit">
+            <span class="no">1</span>
+            <h3><span lang="ko">원스토어 로그인과 결제수단 그대로</span><span lang="en">ONE store login and payment, as they are</span><span lang="zh-Hans">沿用 ONE store 登录与支付方式</span></h3>
+            <p lang="ko">게임 안 동선으로 원샵에 들어오면, 원스토어에 로그인된 기기에서는 별도 로그인 없이 이용자가 원스토어에 등록해 둔 결제수단으로 바로 결제합니다. 게임 ID와 서버 정보도 자동으로 넘어와, 이용자는 아무것도 입력하지 않고 구매를 마칩니다. 원스토어 로그인 연동은 게임 안 동선으로 진입한 경우에만 적용됩니다.</p>
+            <p lang="en">When players arrive through a link in your game, those on a device signed in to ONE store pay with the methods already saved in ONE store, with no extra login. The game ID and server carry over automatically, so players finish buying without typing anything. ONE store login linking applies only to players who arrive through an in-game link.</p>
+            <p lang="zh-Hans">玩家通过游戏内入口进入 ONEshop 时，在已登录 ONE store 的设备上无需再次登录，即可用已绑定的支付方式直接付款。游戏 ID 与服务器信息也会自动带入，玩家无需任何输入即可完成购买。ONE store 登录联动仅适用于通过游戏内入口进入的情况。</p>
+          </div>
+          <div class="benefit">
+            <span class="no">2</span>
+            <h3><span lang="ko">게임 안에서 공식적으로 연결</span><span lang="en">Officially linked from your game</span><span lang="zh-Hans">游戏内官方联动</span></h3>
+            <p lang="ko">원샵은 게임 안에서 웹샵으로 이동하는 경로를 공식적으로 허용합니다. 인게임 상점을 포함해 게임 안 어디서든 원샵을 홍보하고 이용자를 원샵으로 이동시킬 수 있으며, 원샵 단독 아이템과 원샵 전용 이벤트도 게임 안에 노출할 수 있습니다. 게임은 이용자 신뢰가 가장 높고 진입 장벽이 가장 낮은 유입 채널입니다.</p>
+            <p lang="en">ONEshop officially allows paths from your game to the webshop. Promote ONEshop and send players there from anywhere in your game, including the in-game store, and show ONEshop-only items and events in game too. Your game is the most trusted, lowest-friction channel to bring players in.</p>
+            <p lang="zh-Hans">ONEshop 官方允许从游戏内跳转至网店。包括游戏内商店在内，可在游戏内任意位置推广 ONEshop 并引导玩家前往，ONEshop 独家道具和专属活动也可在游戏内展示。游戏是玩家信任度最高、门槛最低的引流渠道。</p>
+          </div>
+          <div class="benefit">
+            <span class="no">3</span>
+            <h3><span lang="ko">원스토어 앱 안에서 노출</span><span lang="en">Featured in the ONE store app</span><span lang="zh-Hans">在 ONE store 应用内曝光</span></h3>
+            <p lang="ko">원샵 상품은 원스토어 앱의 검색과 상품 상세 페이지에 노출됩니다. 앱과 웹샵을 함께 운영하면 상세 페이지에서 앱 설치와 웹샵 이동을 한 번에 안내합니다.</p>
+            <p lang="en">ONEshop items appear in ONE store app search and on product pages. If you run both an app and a webshop, the product page offers app install and webshop access together.</p>
+            <p lang="zh-Hans">ONEshop 商品会出现在 ONE store 应用的搜索和商品详情页中。同时运营应用和网店时，详情页可一并引导安装应用和前往网店。</p>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+  <div class="fade" aria-hidden="true"></div>
+
+  <div class="wrap">
+    <section class="sec" id="results" style="border-top:0;padding-top:24px">
+      <div class="sec-head"><span class="sec-num">03</span><h2 class="sec-title"><span lang="ko">성과와 사례</span><span lang="en">Results and cases</span><span lang="zh-Hans">成效与案例</span></h2></div>
+      <p class="lead" lang="ko">원샵을 연 게임은 인앱결제만 운영할 때보다 전체 거래액이 더 크게 늘었고, 원샵으로 결제된 만큼 수수료를 아꼈습니다.</p>
+      <p class="lead" lang="en">Games that opened ONEshop grew total revenue more than with in-app billing alone, and saved fees on every payment made through ONEshop.</p>
+      <p class="lead" lang="zh-Hans">开通 ONEshop 的游戏，总流水增长超过仅用应用内支付时，并在通过 ONEshop 支付的部分节省了手续费。</p>
+      <div class="stats">
+        <div class="stat">
+          <span class="lbl"><span lang="ko">증분 효과</span><span lang="en">Incremental lift</span><span lang="zh-Hans">增量效果</span></span>
+          <span class="num">+15%</span>
+          <p lang="ko">원샵 도입 전후, '인앱결제+원샵' 거래액 증가분이 인앱결제만의 증가분보다 평균 15% 높음</p>
+          <p lang="en">Before vs. after launch, growth in IAP + ONEshop revenue averaged 15% higher than growth in IAP alone</p>
+          <p lang="zh-Hans">接入前后对比，“应用内支付+ONEshop”的流水增量平均比仅应用内支付高 15%</p>
+        </div>
+        <div class="stat">
+          <span class="lbl"><span lang="ko">원샵 거래 비중</span><span lang="en">ONEshop share</span><span lang="zh-Hans">ONEshop 占比</span></span>
+          <span class="num">10~30%</span>
+          <p lang="ko">상위 게임의 전체 거래액 중 원샵 비중</p>
+          <p lang="en">Share of total revenue through ONEshop at top games</p>
+          <p lang="zh-Hans">头部游戏总流水中 ONEshop 的占比</p>
+        </div>
+        <div class="stat">
+          <span class="lbl"><span lang="ko">수수료 차이</span><span lang="en">Fee gap</span><span lang="zh-Hans">手续费差</span></span>
+          <span class="num">12%p</span>
+          <p lang="ko">인앱결제 20% 대비 원샵 8%. 원샵 비중만큼 수수료 절감</p>
+          <p lang="en">8% on ONEshop vs. 20% for in-app billing, saving fees in proportion to the ONEshop share</p>
+          <p lang="zh-Hans">ONEshop 8%，应用内支付 20%，ONEshop 占比越高节省越多</p>
+        </div>
+      </div>
+      <p class="lead" style="margin-top:16px" lang="ko">기본 거래액이 오를 때는 상승폭을 키웠고, 내릴 때는 하락폭을 줄였습니다.</p>
+      <p class="lead" style="margin-top:16px" lang="en">When base revenue rose, ONEshop widened the gain; when it fell, ONEshop narrowed the drop.</p>
+      <p class="lead" style="margin-top:16px" lang="zh-Hans">基础流水上升时放大涨幅，下降时收窄跌幅。</p>
+
+      <h3 class="sub"><span lang="ko">장르별 사례</span><span lang="en">Cases by genre</span><span lang="zh-Hans">分品类案例</span></h3>
+      <ul class="cases">
+        <li class="case"><span class="case-id">A</span>
+          <div class="case-body"><b lang="ko">무협 방치형 RPG</b><b lang="en">Martial arts idle RPG</b><b lang="zh-Hans">武侠放置 RPG</b>
+            <span lang="ko">기본 보너스 10%, 고액 상품 12~15%. 게임 내 경로 중심 유입</span><span lang="en">10% base bonus, 12~15% on large packs. Traffic mainly from in-game links</span><span lang="zh-Hans">基础赠送 10%，大额商品 12~15%。主要通过游戏内入口引流</span></div>
+          <span class="share"><span lang="ko">원샵 비중 </span><span lang="en">ONEshop share </span><span lang="zh-Hans">ONEshop 占比 </span>30%</span></li>
+        <li class="case"><span class="case-id">B</span>
+          <div class="case-body"><b lang="ko">무협 MMORPG</b><b lang="en">Martial arts MMORPG</b><b lang="zh-Hans">武侠 MMORPG</b>
+            <span lang="ko">상품권 구매 시 6~13% 혜택. 게임 첫 화면 버튼, 커뮤니티 공지</span><span lang="en">6~13% value on vouchers. Main-screen button and community notices</span><span lang="zh-Hans">购买充值券享 6~13% 优惠。游戏首页按钮与社区公告</span></div>
+          <span class="share"><span lang="ko">원샵 비중 </span><span lang="en">ONEshop share </span><span lang="zh-Hans">ONEshop 占比 </span>20%</span></li>
+        <li class="case"><span class="case-id">C</span>
+          <div class="case-body"><b lang="ko">오컬트 방치형 RPG</b><b lang="en">Occult idle RPG</b><b lang="zh-Hans">神怪放置 RPG</b>
+            <span lang="ko">캐릭터당 월 2~4회 한정 상품, 매월 1일 초기화. 커뮤니티 공지</span><span lang="en">Limited packs 2~4 times a month per character, reset on the 1st. Community notices</span><span lang="zh-Hans">每角色每月限购 2~4 次的限定商品，每月 1 日重置。社区公告</span></div></li>
+        <li class="case"><span class="case-id">D</span>
+          <div class="case-body"><b lang="ko">턴제 RPG</b><b lang="en">Turn-based RPG</b><b lang="zh-Hans">回合制 RPG</b>
+            <span lang="ko">판매가 8~14% 할인, 상품별 첫 결제 보너스. 게임 첫 화면 버튼</span><span lang="en">8~14% off list price, first-purchase bonus on each item. Main-screen button</span><span lang="zh-Hans">售价 8~14% 折扣，每款商品首次购买赠送奖励。游戏首页按钮</span></div></li>
+        <li class="case"><span class="case-id">E</span>
+          <div class="case-body"><b lang="ko">하드코어 MMO</b><b lang="en">Hardcore MMO</b><b lang="zh-Hans">硬核 MMO</b>
+            <span lang="ko">상품권 5% 보너스, 게임 내 충전 이벤트 중복 적용</span><span lang="en">5% voucher bonus that stacks with in-game top-up events</span><span lang="zh-Hans">充值券赠送 5%，可叠加游戏内充值活动</span></div></li>
+      </ul>
+      <p class="footnote" lang="ko">원스토어 내부 집계 기준이며, 게임별 성과는 상품 구성과 운영 방식에 따라 다릅니다.</p>
+      <p class="footnote" lang="en">Based on ONE store internal data. Results vary by game, item lineup and operations.</p>
+      <p class="footnote" lang="zh-Hans">基于 ONE store 内部统计，各游戏成效因商品构成与运营方式而异。</p>
+    </section>
+
+    <section class="sec" id="tips">
+      <div class="sec-head"><span class="sec-num">04</span><h2 class="sec-title"><span lang="ko">운영 제언</span><span lang="en">Best practices</span><span lang="zh-Hans">运营建议</span></h2></div>
+      <p class="lead" lang="ko">원샵 매출이 높은 게임은 세 가지를 함께 운영합니다. 첫 구매를 여는 한정 상품, 다시 오게 하는 혜택, 그리고 이를 알리는 동선입니다.</p>
+      <p class="lead" lang="en">Games with strong ONEshop sales run three things together: limited items that open the first purchase, offers that bring players back, and the paths that tell players about them.</p>
+      <p class="lead" lang="zh-Hans">ONEshop 销售表现好的游戏会同时做好三件事：促成首购的限定商品、吸引回购的优惠，以及告知玩家的引导路径。</p>
+      <div class="channels">
+        <div class="channel">
+          <h3><span lang="ko">첫 구매를 여는 한정 상품</span><span lang="en">Limited items for the first purchase</span><span lang="zh-Hans">促成首购的限定商品</span></h3>
+          <ul lang="ko">
+            <li>1,500원~7,500원 소액 상품으로 원샵 첫 결제 문턱을 낮춥니다.</li>
+            <li>계정당 1회, 또는 월 1~2회로 구매 횟수를 제한해 지금 사야 할 이유를 만듭니다.</li>
+            <li>인앱 상점에 없는 구성이나 추가 보너스로 원샵 전용 상품임을 보여줍니다.</li>
+          </ul>
+          <ul lang="en">
+            <li>Lower the barrier to a first ONEshop purchase with small packs from ₩1,500 to ₩7,500.</li>
+            <li>Limit purchases to once per account or 1~2 times a month to give players a reason to buy now.</li>
+            <li>Use bundles or bonuses not sold in the in-app store to show they are ONEshop exclusives.</li>
+          </ul>
+          <ul lang="zh-Hans">
+            <li>以 1,500~7,500 韩元的小额商品降低 ONEshop 首次付费门槛。</li>
+            <li>限制为每账号 1 次或每月 1~2 次，营造立即购买的理由。</li>
+            <li>提供应用内商店没有的组合或额外奖励，突出 ONEshop 专属。</li>
+          </ul>
+          <div class="howto">
+            <span lang="ko"><b>이렇게 설정하세요</b>: 구매 횟수 제한은 유효성 검증 응답 코드 1001과 안내 문구로 처리하고, 아이템 설명에 "계정당 1회 구매 가능"처럼 미리 적어 두세요. 일회성 상품은 구매확인을 acknowledge로 처리합니다. (<a href="https://onestore-dev.gitbook.io/dev/webshop/implementation">활용 가이드</a>)</span>
+            <span lang="en"><b>How to set it up</b>: Handle purchase limits with validation response code 1001 and a message, and state the limit in the item description, e.g. "One purchase per account". Confirm one-time items with acknowledge. (<a href="https://onestore-dev.gitbook.io/dev/webshop/implementation">Usage guide</a>)</span>
+            <span lang="zh-Hans"><b>设置方法</b>：购买次数限制通过有效性校验响应码 1001 及提示文案处理，并在道具说明中提前注明，例如“每个账号限购 1 次”。一次性商品的购买确认请使用 acknowledge。（<a href="https://onestore-dev.gitbook.io/dev/webshop/implementation">使用指南</a>）</span>
+          </div>
+        </div>
+        <div class="channel">
+          <h3><span lang="ko">다시 오게 하는 할인과 추가 보상</span><span lang="en">Discounts and bonuses that bring players back</span><span lang="zh-Hans">吸引回购的折扣与奖励</span></h3>
+          <ul lang="ko">
+            <li>인앱결제 대비 10~15%의 실질 혜택을 상시 제공합니다. 할인이든 보너스 재화든 방식은 자유이며, 인앱결제와 가격을 맞출 필요가 없습니다.</li>
+            <li>결제 금액이 클수록 혜택을 키웁니다. 예: 기본 10%, 고액 상품 12~15%.</li>
+            <li>월간 한정 상품을 매월 초기화해 정기적으로 다시 방문할 이유를 만듭니다.</li>
+            <li>충전형 상품권이라면 게임 내 충전 이벤트와 중복 적용되게 합니다.</li>
+          </ul>
+          <ul lang="en">
+            <li>Offer an always-on value of 10~15% over in-app billing, as a discount or bonus currency. Prices do not need to match in-app billing.</li>
+            <li>Scale the offer with spend, e.g. 10% base and 12~15% on large packs.</li>
+            <li>Reset monthly limited packs every month to bring players back regularly.</li>
+            <li>If you sell top-up vouchers, let them stack with in-game top-up events.</li>
+          </ul>
+          <ul lang="zh-Hans">
+            <li>相比应用内支付，长期提供 10~15% 的实际优惠，折扣或赠送货币均可，无需与应用内支付价格一致。</li>
+            <li>消费金额越高优惠越大，例如基础 10%，大额商品 12~15%。</li>
+            <li>每月重置月度限定商品，让玩家定期回访。</li>
+            <li>若销售充值券，可与游戏内充值活动叠加使用。</li>
+          </ul>
+          <div class="howto">
+            <span lang="ko"><b>이렇게 설정하세요</b>: 정가와 판매가를 함께 입력하면 정가에 취소선이 표시됩니다. 상단 배너에 혜택을 알리세요.</span>
+            <span lang="en"><b>How to set it up</b>: Enter both list and sale prices to show the list price struck through. Announce offers in the top banner.</span>
+            <span lang="zh-Hans"><b>设置方法</b>：同时填写原价和售价，原价将显示删除线。并在顶部横幅中展示优惠。</span>
+          </div>
+        </div>
+        <div class="channel wide">
+          <h3><span lang="ko">혜택을 알리는 동선</span><span lang="en">Paths that tell players</span><span lang="zh-Hans">告知玩家的引导路径</span></h3>
+          <ul lang="ko">
+            <li>게임 첫 화면과 인게임 상점에 원샵 버튼을 둡니다. 원샵 비중이 높은 게임은 모두 첫 화면에서 한 번에 이동하는 구조입니다.</li>
+            <li>버튼은 원샵 타이틀 상세 페이지를 호출합니다. 사용자 정보 연동으로 게임 ID와 서버를 함께 넘기면 이용자는 입력 없이 바로 구매합니다.</li>
+            <li>공식 카페·라운지 상단에 원샵 공지를 고정하고, 업데이트·이벤트 공지와 주간 소식에도 원샵 링크를 넣습니다. 배너에는 "Shop on ONEshop" 뱃지를 함께 사용하길 권장합니다.</li>
+            <li>원샵 단독 아이템과 원샵 전용 이벤트는 인게임 상점·공지와 커뮤니티 공지에 함께 노출하면 효과가 극대화됩니다.</li>
+          </ul>
+          <ul lang="en">
+            <li>Place ONEshop buttons on the main screen and in your in-game store. Every game with a high ONEshop share links there in one tap from the main screen.</li>
+            <li>The button opens your ONEshop title page. Pass the game ID and server through user info linking, and players buy without typing anything.</li>
+            <li>Pin a ONEshop notice at the top of your official community, and add the link to update, event and weekly posts. Using the "Shop on ONEshop" badge on banners is recommended.</li>
+            <li>Show ONEshop-only items and events in your in-game store and notices as well as in community notices for the best results.</li>
+          </ul>
+          <ul lang="zh-Hans">
+            <li>在游戏首页和游戏内商店放置 ONEshop 按钮。ONEshop 占比高的游戏都采用首页一键跳转的结构。</li>
+            <li>按钮调用 ONEshop 游戏详情页。通过用户信息联动一并传递游戏 ID 与服务器，玩家无需输入即可购买。</li>
+            <li>在官方社区置顶 ONEshop 公告，并在更新、活动公告和每周资讯中加入 ONEshop 链接。横幅建议搭配“Shop on ONEshop”徽章使用。</li>
+            <li>ONEshop 独家道具和专属活动同时在游戏内商店、游戏内公告及社区公告中展示，效果最佳。</li>
+          </ul>
+          <div class="urlbox">
+            <span class="lbl"><span lang="ko">웹샵 상세 페이지 URL</span><span lang="en">Webshop title page URL</span><span lang="zh-Hans">网店详情页 URL</span></span>
+            <div class="urlrow">
+              <code>https://webshop.onestore.net/title/{PID}</code>
+              <button type="button" class="copy"><span class="c-idle"><span lang="ko">복사</span><span lang="en">Copy</span><span lang="zh-Hans">复制</span></span><span class="c-done"><span lang="ko">복사됨</span><span lang="en">Copied</span><span lang="zh-Hans">已复制</span></span></button>
+            </div>
+            <p lang="ko">개발사는 위 URL을 자체 마케팅 채널(인게임, 공식 사이트, 커뮤니티 등)에서 활용할 수 있습니다.</p>
+            <p lang="en">Use this URL in your own marketing channels, such as in-game, your official site and community.</p>
+            <p lang="zh-Hans">开发者可在自有营销渠道（游戏内、官网、社区等）中使用上述 URL。</p>
+          </div>
+          <div class="warn">
+            <p lang="ko"><b>유의</b>: 혜택이 커도 공지와 동선이 없으면 구매가 이어지지 않습니다. 70%대 할인을 하고도 공지가 없던 게임은 구매가 한정적이었습니다.</p>
+            <p lang="en"><b>Note</b>: Big offers do not sell without notices and an entry point. One game offered discounts above 70% with no notices, and purchases stayed limited.</p>
+            <p lang="zh-Hans"><b>注意</b>：即使优惠力度大，没有公告和入口也难以带来购买。曾有游戏提供 70% 以上折扣却未发布公告，购买十分有限。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="sec" id="faq">
+      <div class="sec-head"><span class="sec-num">05</span><h2 class="sec-title">FAQ</h2></div>
+      <div class="faq">
+        <div class="qa">
+          <h3><span lang="ko">인앱결제 매출이 잠식되지 않나요?</span><span lang="en">Won't ONEshop cannibalize in-app revenue?</span><span lang="zh-Hans">ONEshop 会蚕食应用内支付收入吗？</span></h3>
+          <p lang="ko">원샵은 인앱결제를 보완하는 채널입니다. 원샵을 연 게임은 인앱결제만 운영할 때보다 전체 거래액 증가분이 평균 15% 컸고, 기본 거래액이 줄 때는 하락폭을 줄였습니다. 인앱결제에서 원샵으로 옮겨 간 결제는 수수료가 12%p 낮아, 같은 매출에서도 남는 몫이 커집니다.</p>
+          <p lang="en">ONEshop complements in-app billing. Games that opened ONEshop grew total revenue 15% more on average than with in-app billing alone, and narrowed drops when base revenue fell. Payments that move from in-app billing to ONEshop carry a fee 12 percentage points lower, so you keep more from the same sales.</p>
+          <p lang="zh-Hans">ONEshop 是应用内支付的补充渠道。开通 ONEshop 的游戏，总流水增量平均比仅用应用内支付高 15%，基础流水下降时也收窄了跌幅。从应用内支付转到 ONEshop 的付款，手续费低 12 个百分点，同样的销售额可留存更多收益。</p>
+        </div>
+        <div class="qa">
+          <h3><span lang="ko">인앱결제와 가격을 맞춰야 하나요?</span><span lang="en">Do prices have to match in-app billing?</span><span lang="zh-Hans">价格需要与应用内支付一致吗？</span></h3>
+          <p lang="ko">아니요. 인앱결제 상품과 원샵 아이템의 가격을 맞출 필요가 없고, 플랫폼별로 다른 가격과 구성을 운영할 수 있습니다. 다만 웹샵을 추가해도 기존 인앱결제 상품의 판매는 중지할 수 없습니다.</p>
+          <p lang="en">No. ONEshop item prices do not need to match in-app items, and you can run different prices and bundles per platform. However, adding a webshop does not let you stop selling existing in-app items.</p>
+          <p lang="zh-Hans">不需要。ONEshop 道具价格无需与应用内商品一致，可按平台设置不同价格与组合。但开通网店后，不可停止销售现有的应用内支付商品。</p>
+        </div>
+        <div class="qa">
+          <h3><span lang="ko">게임 안에서 어디까지 노출할 수 있나요?</span><span lang="en">What can I show inside my game?</span><span lang="zh-Hans">游戏内可以展示到什么程度？</span></h3>
+          <p lang="ko">인게임 상점을 포함해 게임 안 어디든 게임사가 자유롭게 원샵을 배치하고 소개할 수 있으며, 원샵 단독 아이템과 원샵 전용 이벤트도 게임 안에 노출할 수 있습니다. 버튼, 링크, 메시지, 팝업, 메뉴, 배너 등 형태도 자유이며, 이동할 때는 원샵 타이틀 상세 페이지를 호출합니다. 가장 효과가 좋았던 방식은 게임 첫 화면에서 한 번에(1depth) 원샵으로 이동하는 버튼이었습니다.</p>
+          <p lang="en">You are free to place and introduce ONEshop anywhere in your game, including the in-game store, and to show ONEshop-only items and events in game. Any form works: buttons, links, messages, pop-ups, menus or banners. Links open your ONEshop title page. The most effective setup was a button on the main screen that takes players to ONEshop in one tap (1-depth).</p>
+          <p lang="zh-Hans">包括游戏内商店在内，游戏公司可在游戏内任意位置自由放置并介绍 ONEshop，ONEshop 独家道具和专属活动也可在游戏内展示。按钮、链接、消息、弹窗、菜单、横幅等形式均可，跳转时调用 ONEshop 游戏详情页。效果最好的方式是在游戏首页设置一键（一级入口）直达 ONEshop 的按钮。</p>
+        </div>
+        <div class="qa">
+          <h3><span lang="ko">해외에서도 판매할 수 있나요?</span><span lang="en">Can I sell outside Korea?</span><span lang="zh-Hans">可以在海外销售吗？</span></h3>
+          <p lang="ko">개발자센터에서 판매 국가를 설정할 수 있습니다. 현재 판매 가능 국가는 대한민국, 태국, 대만, 인도네시아, 일본, 필리핀, 미국이며, 인도, 유럽 13개국 등을 추가할 예정입니다.</p>
+          <p lang="en">Yes. Set your sales countries in the Developer Center. ONEshop currently sells in Korea, Thailand, Taiwan, Indonesia, Japan, the Philippines and the United States, with India, 13 European countries and more coming.</p>
+          <p lang="zh-Hans">可以。在开发者中心设置销售国家即可。目前可在韩国、泰国、台湾、印度尼西亚、日本、菲律宾、美国销售，并计划新增印度、欧洲 13 国等。</p>
+        </div>
+      </div>
+    </section>
+
+  </div>
+  <div class="fade-up" aria-hidden="true"></div>
+  <div class="support-band">
+   <div class="wrap">
+    <section class="sec" id="support">
+      <span class="band-tag"><span lang="ko">입점 게임 혜택</span><span lang="en">Partner benefits</span><span lang="zh-Hans">入驻游戏专享</span></span>
+      <div class="sec-head"><span class="sec-num">06</span><h2 class="sec-title"><span lang="ko">지원 패키지</span><span lang="en">Support package</span><span lang="zh-Hans">支持方案</span></h2></div>
+      <p class="lead" lang="ko">원샵에 입점한 모든 게임은 아래 지원을 받습니다.</p>
+      <p class="lead" lang="en">Every game on ONEshop gets the following support.</p>
+      <p class="lead" lang="zh-Hans">入驻 ONEshop 的所有游戏均可获得以下支持。</p>
+      <div class="channels">
+        <div class="channel wide">
+          <h3><span lang="ko">원스토어 노출 지원</span><span lang="en">ONE store placement</span><span lang="zh-Hans">ONE store 曝光支持</span></h3>
+          <ul lang="ko"><li>원스토어 앱 내 웹샵 전용 카드를 지원합니다.</li><li>원샵 웹 내 최상단 카드를 지원합니다. (원샵 한정 혜택이 제공되는 게임 대상)</li></ul>
+          <ul lang="en"><li>A dedicated webshop card in the ONE store app.</li><li>A top card on the ONEshop website (for games offering ONEshop-only benefits).</li></ul>
+          <ul lang="zh-Hans"><li>在 ONE store 应用内提供网店专属卡片。</li><li>在 ONEshop 网站提供置顶卡片（面向提供 ONEshop 专属优惠的游戏）。</li></ul>
+        </div>
+        <div class="channel">
+          <h3><span lang="ko">원스토어 검색 노출</span><span lang="en">ONE store search</span><span lang="zh-Hans">ONE store 搜索曝光</span></h3>
+          <p lang="ko">원스토어 앱에서 검색하면 원샵 상품이 노출되고, 누르면 원샵 상세 페이지로 이동합니다.</p>
+          <p lang="en">ONEshop items appear in ONE store app search and open the ONEshop product page when tapped.</p>
+          <p lang="zh-Hans">在 ONE store 应用中搜索时展示 ONEshop 商品，点击即跳转至 ONEshop 详情页。</p>
+        </div>
+        <div class="channel">
+          <h3><span lang="ko">원스토어 상품 상세</span><span lang="en">ONE store product page</span><span lang="zh-Hans">ONE store 商品详情页</span></h3>
+          <p lang="ko">앱과 함께 입점하면 한 페이지에서 앱 설치와 원샵 이동을 함께 안내합니다.</p>
+          <p lang="en">List both your app and webshop, and one page offers app install and ONEshop access together.</p>
+          <p lang="zh-Hans">应用与网店同时入驻时，在同一页面引导安装应用和前往 ONEshop。</p>
+        </div>
+        <div class="channel wide feature">
+          <h3><span lang="ko">결제 이벤트 지원</span><span lang="en">Payment event support</span><span lang="zh-Hans">支付活动支持</span> <span class="plan"><span lang="ko">11월 말 예정</span><span lang="en">Coming late November</span><span lang="zh-Hans">11 月底推出</span></span></h3>
+          <p lang="ko">원샵 한정 상품 혹은 할인 혜택을 제공하고 이를 자체 커뮤니티에 안내하는 게임사를 대상으로, 원샵 내 결제를 유도하는 이벤트를 지원합니다. 상세한 협의가 필요하므로, 진행 의사가 있으신 경우 <span class="mail">ext.gamebiz@onestorecorp.com</span>으로 연락 주세요.</p>
+          <p lang="en">For games that offer ONEshop-only items or discounts and announce them in their own community, we support events that drive purchases on ONEshop. Details are agreed case by case, so if you are interested, contact <span class="mail">ext.gamebiz@onestorecorp.com</span>.</p>
+          <p lang="zh-Hans">面向提供 ONEshop 限定商品或折扣并在自有社区公告的游戏公司，我们支持促进 ONEshop 内付费的活动。具体内容需详细协商，如有意参与，请联系 <span class="mail">ext.gamebiz@onestorecorp.com</span>。</p>
+        </div>
+      </div>
+    </section>
+   </div>
+  </div>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <img class="logo" src="data:image/png;base64,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" alt="ONE store">
+      <span><a href="https://onestore-dev.gitbook.io/dev/webshop/overview"><span lang="ko">원스토어 개발자센터</span><span lang="en">ONE store Developer Center</span><span lang="zh-Hans">ONE store 开发者中心</span></a> · <span lang="ko">2026년 10월 기준</span><span lang="en">As of October 2026</span><span lang="zh-Hans">截至 2026 年 10 月</span></span>
+    </div>
+  </footer>
+</div>
+<script>
+(function () {
+  var h = document.documentElement;
+  function set(lang) {
+    h.dataset.lang = lang;
+    h.lang = lang === "zh" ? "zh-Hans" : lang;
+    document.querySelectorAll(".lang-toggle button").forEach(function (b) {
+      b.setAttribute("aria-pressed", String(b.dataset.set === lang));
+    });
+  }
+  document.addEventListener("click", function (e) {
+    var b = e.target.closest(".lang-toggle button");
+    if (b) set(b.dataset.set);
+    var c = e.target.closest(".copy");
+    if (c) {
+      var code = c.parentNode.querySelector("code");
+      var select = function () {
+        var r = document.createRange(); r.selectNodeContents(code);
+        var s = window.getSelection(); s.removeAllRanges(); s.addRange(r);
+      };
+      var done = function () {
+        c.classList.add("ok");
+        setTimeout(function () { c.classList.remove("ok"); }, 1500);
+      };
+      try { navigator.clipboard.writeText(code.textContent).then(done, select); } catch (err) { select(); }
+    }
+  });
+  var q = null;
+  try { q = new URLSearchParams(location.search).get("lang"); } catch (err) {}
+  set(q === "en" || q === "zh" ? q : "ko");
+})();
+</script>
+
+</body>
+</html>
